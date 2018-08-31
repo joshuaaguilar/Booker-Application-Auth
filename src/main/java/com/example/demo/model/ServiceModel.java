@@ -3,6 +3,7 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,11 +12,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@JsonIdentityInfo(generator = PropertyGenerator.class, property = "serviceId")
+//@JsonIdentityInfo(generator = PropertyGenerator.class, property = "serviceId")
+
 public class ServiceModel {
 
 	@Id
@@ -56,9 +57,10 @@ public class ServiceModel {
 
 	private String serviceName;
 	private String description;
-	@OneToMany
+	@OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
 	private List<Image> images;
 	@ManyToOne
+	@JsonIgnore
 	@JoinColumn(name = "travelPackageId")
 	private Travelpackage travelpackage;
 

@@ -3,25 +3,28 @@ package com.example.demo.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.PropertyGenerator;
 
+@Entity
+@JsonIdentityInfo(generator = PropertyGenerator.class, property = "travelPackageId")
 public class Travelpackage {
 
 	@Id
-
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int travelPackageId;
 	private String packageName;
 
-	@OneToMany
+	@OneToMany(mappedBy = "travelpackage", cascade = CascadeType.ALL)
 	private List<ServiceModel> availableServiceList;
-	@OneToMany
+	@OneToMany(mappedBy = "travelpackage", cascade = CascadeType.ALL)
 	private List<Image> images;
 	private String description;
 

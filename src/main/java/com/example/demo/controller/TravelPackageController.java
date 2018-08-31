@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.ServiceModel;
@@ -28,6 +31,22 @@ public class TravelPackageController {
 		this.travelPackageServiceService = travelPackageServiceService;
 	}
 
+	@GetMapping("/{travelPackgeId}/services")
+	public List<ServiceModel> findAllservices(@PathVariable("travelPackgeId") int id) {
+		return travelPackageServiceService.findAll(id);
+	}
+
+	@PostMapping("/{travelPackgeId}/services")
+	public List<ServiceModel> saveList(@PathVariable("travelPackgeId") int id,
+			@RequestBody List<ServiceModel> serviceList) {
+		return travelPackageServiceService.saveList(id, serviceList);
+	}
+
+	@DeleteMapping("/{travelPackgeId}/services")
+	public void deleteServices(@PathVariable("travelPackgeId") int id, @RequestParam("serviceid") int[] serviceId) {
+		travelPackageServiceService.deleteList(id, serviceId);
+	}
+
 	@GetMapping("/{travelPackageId}")
 	public Travelpackage findById(@PathVariable("travelPackageId") int id) {
 		return travelPackageService.findById(id);
@@ -40,7 +59,7 @@ public class TravelPackageController {
 		return travelpackage;
 	}
 
-	@DeleteMapping("{travelPackageId}")
+	@DeleteMapping("/{travelPackageId}")
 	public void delete(@PathVariable("travelPackageid") int id) {
 		travelPackageService.delete(id);
 
@@ -52,20 +71,20 @@ public class TravelPackageController {
 	}
 
 	@PostMapping
+	@Transactional
 	public List<Travelpackage> saveList(@RequestBody List<Travelpackage> travelpackages) {
 		return travelPackageService.saveList(travelpackages);
 	}
 
-	@DeleteMapping("/{travelPackageList}")
-	public void deleteList(@PathVariable("travelPackageList") int[] ids) {
+	@DeleteMapping
+	public void deleteList(@RequestParam("travelPackageId") int[] ids) {
 		travelPackageService.deleteList(ids);
 	}
 
 //	@PutMapping
-	// public List<Travelpackage> updateList(@RequestBody List<Travelpackage>
-	// travelpackages) {
-
-	// }
+//	public List<Travelpackage> updateList(@RequestBody List<Travelpackage> travelpackages){
+//		travelPackageService.
+//	}
 
 	@GetMapping("/{travelPackageId}/services/{serviceId}")
 	public ServiceModel findById(@PathVariable("travelPackageid") int travelid,
@@ -73,12 +92,12 @@ public class TravelPackageController {
 		return travelPackageServiceService.findbyid(travelid, serviceid);
 	}
 
-	@PutMapping("/{travelPackageId}/services/{serviceId}")
-	public ServiceModel update(@PathVariable("travelPackageid") int travelid, @PathVariable("serviceId") int serviceid,
-			@RequestBody ServiceModel servicemodel) {
-		servicemodel.setServiceId(travelPackageServiceService.findbyid(travelid, serviceid).getServiceId());
-		return travelPackageServiceService.save(servicemodel);
-	}
+//	@PutMapping("/{travelPackageId}/services/{serviceId}")
+//	public ServiceModel update(@PathVariable("travelPackageid") int travelid, @PathVariable("serviceId") int serviceid,
+//			@RequestBody ServiceModel servicemodel) {
+//		servicemodel.setServiceId(travelPackageServiceService.findbyid(travelid, serviceid).getServiceId());
+//		return travelPackageServiceService.save(servicemodel);
+//	}
 
 	@DeleteMapping("/{travelPackageId}/services/{serviceId}")
 	public List<ServiceModel> delete(@PathVariable("travelPackageid") int travelid,

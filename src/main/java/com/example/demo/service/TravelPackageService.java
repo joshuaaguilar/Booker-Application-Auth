@@ -31,7 +31,6 @@ public class TravelPackageService {
 	}
 
 	public Travelpackage save(Travelpackage travelpackage) {
-		travelPackageRepository.save(travelpackage);
 		for (Image image : travelpackage.getImages()) {
 			image.setTravelPackage(travelpackage);
 			imageRepository.save(image);
@@ -40,6 +39,7 @@ public class TravelPackageService {
 			servicemodel.setTravelpackage(travelpackage);
 			serviceRepository.save(servicemodel);
 		}
+		travelPackageRepository.save(travelpackage);
 		return travelpackage;
 	}
 
