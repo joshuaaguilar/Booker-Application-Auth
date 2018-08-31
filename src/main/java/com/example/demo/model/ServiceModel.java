@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -53,18 +54,20 @@ public class ServiceModel {
 		this.images = images;
 	}
 
-	public List<Travelpackage> getTravelpackages() {
-		return travelpackages;
-	}
-
-	public void setTravelpackages(List<Travelpackage> travelpackages) {
-		this.travelpackages = travelpackages;
-	}
-
 	private String serviceName;
 	private String description;
 	@OneToMany
 	private List<Image> images;
-	@ManyToOne(targetEntity = Travelpackage.class)
-	private List<Travelpackage> travelpackages;
+	@ManyToOne
+	@JoinColumn(name = "travelPackageId")
+	private Travelpackage travelpackage;
+
+	public Travelpackage getTravelpackage() {
+		return travelpackage;
+	}
+
+	public void setTravelpackage(Travelpackage travelpackage) {
+		this.travelpackage = travelpackage;
+	}
+
 }

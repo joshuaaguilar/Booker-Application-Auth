@@ -1,11 +1,10 @@
 package com.example.demo.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -41,8 +40,27 @@ public class Image {
 
 	private String description;
 	private String imageUrl;
-	@ManyToOne(targetEntity = ServiceModel.class)
-	private List<ServiceModel> services;
-	@ManyToOne(targetEntity = Travelpackage.class)
-	private List<Travelpackage> travelPackages;
+	@ManyToOne
+	@JoinColumn(name = "serviceId")
+	private ServiceModel service;
+	@ManyToOne
+	@JoinColumn(name = "travelPackageId")
+	private Travelpackage travelPackage;
+
+	public ServiceModel getService() {
+		return service;
+	}
+
+	public void setService(ServiceModel service) {
+		this.service = service;
+	}
+
+	public Travelpackage getTravelPackage() {
+		return travelPackage;
+	}
+
+	public void setTravelPackage(Travelpackage travelPackage) {
+		this.travelPackage = travelPackage;
+	}
+
 }

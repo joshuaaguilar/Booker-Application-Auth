@@ -5,28 +5,25 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Customer;
-import com.example.demo.model.CustomerList;
-import com.example.demo.repository.CustomerListRepository;
 import com.example.demo.repository.CustomerRepository;
 
 @Service
 public class CustomerService {
 
 	private CustomerRepository customerRepository;
-	private CustomerListRepository customerListRepository;
 
-	public CustomerService(CustomerRepository customerRepository, CustomerListRepository customerListRepository) {
+	public CustomerService(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
-		this.customerListRepository = customerListRepository;
+
 	}
 
 	public List<Customer> gellAllListOfCustomer() {
 		return (List<Customer>) customerRepository.findAll();
 	}
 
-	public List<Customer> saveListOfCustomer(Customer customer) {
-		customerRepository.save(customer);
-		return (List<Customer>) customerRepository.findAll();
+	public Customer save(Customer customer) {
+		return customerRepository.save(customer);
+
 	}
 
 	public Customer findById(int id) {
@@ -34,31 +31,22 @@ public class CustomerService {
 
 	}
 
-	public List<Customer> delete(int id) {
+	public void delete(int id) {
 
 		customerRepository.deleteById(id);
 
-		return (List<Customer>) customerRepository.findAll();
 	}
 
-	public CustomerList saveList(CustomerList customerList) {
-		for (Customer customer : customerList.getCustomerlist()) {
-			customer.setCustomerList(customerList);
-			customerRepository.save(customer);
+	public List<Customer> saveList(List<Customer> customerList) {
+
+		return (List<Customer>) customerRepository.saveAll(customerList);
+
+	}
+
+	public void deleteList(int[] customerListId) {
+		for (int customerId : customerListId) {
+			customerRepository.deleteById(customerId);
 		}
-		return customerListRepository.save(customerList);
-
-	}
-
-	public List<CustomerList> deleteList(int[] customerListId) {
-		for (int listid : customerListId) {
-			customerListRepository.deleteById(listid);
-		}
-		return (List<CustomerList>) customerListRepository.findAll();
-	}
-
-	public List<CustomerList> getAllList() {
-		return (List<CustomerList>) customerListRepository.findAll();
 	}
 
 }

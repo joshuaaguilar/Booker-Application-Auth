@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,11 +41,31 @@ public class TravelPackageController {
 	}
 
 	@DeleteMapping("{travelPackageId}")
-	public List<Travelpackage> delete(@PathVariable("travelPackageid") int id) {
+	public void delete(@PathVariable("travelPackageid") int id) {
 		travelPackageService.delete(id);
-		return travelPackageService.findAll();
 
 	}
+
+	@GetMapping
+	public List<Travelpackage> findAll() {
+		return travelPackageService.findAll();
+	}
+
+	@PostMapping
+	public List<Travelpackage> saveList(@RequestBody List<Travelpackage> travelpackages) {
+		return travelPackageService.saveList(travelpackages);
+	}
+
+	@DeleteMapping("/{travelPackageList}")
+	public void deleteList(@PathVariable("travelPackageList") int[] ids) {
+		travelPackageService.deleteList(ids);
+	}
+
+//	@PutMapping
+	// public List<Travelpackage> updateList(@RequestBody List<Travelpackage>
+	// travelpackages) {
+
+	// }
 
 	@GetMapping("/{travelPackageId}/services/{serviceId}")
 	public ServiceModel findById(@PathVariable("travelPackageid") int travelid,

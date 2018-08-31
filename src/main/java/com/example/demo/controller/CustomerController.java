@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Customer;
-import com.example.demo.model.CustomerList;
 import com.example.demo.service.CustomerService;
 
 @RestController
@@ -30,30 +29,29 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("/{deleteId}")
-	public List<Customer> delete(@PathVariable("deleteId") int id) {
+	public void delete(@PathVariable("deleteId") int id) {
 		customerService.delete(id);
-		return customerService.gellAllListOfCustomer();
 	}
 
 	@PutMapping("/{updateId}")
-	public List<Customer> updateCustomer(@PathVariable("updateId") int id, @RequestBody Customer customer) {
+	public Customer updateCustomer(@PathVariable("updateId") int id, @RequestBody Customer customer) {
 		customer.setCustomerId(id);
-		customerService.saveListOfCustomer(customer);
-		return customerService.gellAllListOfCustomer();
+		return customerService.save(customer);
+
 	}
 
 	@GetMapping
-	public List<CustomerList> getAll() {
-		return customerService.getAllList();
+	public List<Customer> getAll() {
+		return customerService.gellAllListOfCustomer();
 	}
 
 	@PostMapping
-	public CustomerList saveList(@RequestBody CustomerList customerList) {
+	public List<Customer> saveList(@RequestBody List<Customer> customerList) {
 		return customerService.saveList(customerList);
 	}
 
 	@DeleteMapping("/{customerIdList}")
-	public List<CustomerList> deleteList(@PathVariable("customerIdList") int[] ids) {
-		return customerService.deleteList(ids);
+	public void deleteList(@PathVariable("customerIdList") int[] ids) {
+		customerService.deleteList(ids);
 	}
 }
