@@ -1,14 +1,11 @@
-package com.example.demo.service;
+package com.example.demo.util;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 
-import org.springframework.stereotype.Service;
-
 import com.example.demo.model.Customer;
 
-@Service
 public class TokenCreator {
 	private static String source = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@ ";
 	private static String target = "Q5A8ZWS0XEDC6RFVT9GBY4HNU3J2MI1KO7LPX#";

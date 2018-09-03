@@ -14,8 +14,8 @@ public class Authentication {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int authenticationId;
-	@OneToOne
 	@JsonIgnore
+	@OneToOne
 	@JoinColumn(name = "customerId")
 	private Customer customer;
 	private String token;

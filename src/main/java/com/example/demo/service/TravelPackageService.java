@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.example.demo.model.Image;
 import com.example.demo.model.ServiceModel;
 import com.example.demo.model.Travelpackage;
@@ -11,7 +9,6 @@ import com.example.demo.repository.ImageRepository;
 import com.example.demo.repository.ServiceRepository;
 import com.example.demo.repository.TravelPackageRepository;
 
-@Service
 public class TravelPackageService {
 
 	private TravelPackageRepository travelPackageRepository;
