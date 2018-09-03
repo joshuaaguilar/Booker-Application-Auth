@@ -58,6 +58,7 @@ public class CustomerService {
 		TokenCreator tokenCreator = new TokenCreator();
 		Authentication authentication = new Authentication();
 		String token = "";
+
 		if (customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword()) != null) {
 			customer = customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword());
 			token = tokenCreator.encode(customer);

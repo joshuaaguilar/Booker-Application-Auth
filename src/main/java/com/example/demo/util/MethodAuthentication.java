@@ -17,7 +17,7 @@ public class MethodAuthentication {
 		this.authenticationRepository = authenticationRepository;
 	}
 
-	@Around("execution(* com.example.demo.controller.*.*(..)) && args(token,..)&& !execution(* com.example.demo.controller.CustomerController.saveList(..))")
+	@Around("execution(* com.example.demo.controller..*(..)) && args(token,..) && !execution(* com.example.demo.controller.CustomerController.saveList(..))")
 	public Object methodauthentication(ProceedingJoinPoint joinPoint, String token) throws Throwable {
 
 		if (authenticationRepository.findByToken(token) == null) {

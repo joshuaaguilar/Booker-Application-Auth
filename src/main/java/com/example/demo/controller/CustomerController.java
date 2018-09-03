@@ -26,34 +26,35 @@ public class CustomerController {
 	}
 
 	@GetMapping("/{customerId}")
-	public Customer getAllCustomers(@PathVariable("customerId") int id) {
+	public Customer getAllCustomers(@RequestHeader String token, @PathVariable("customerId") int id) {
 		return customerService.findById(id);
 	}
 
 	@DeleteMapping("/{deleteId}")
-	public void delete(@PathVariable("deleteId") int id) {
+	public void delete(@RequestHeader String token, @PathVariable("deleteId") int id) {
 		customerService.delete(id);
 	}
 
 	@PutMapping("/{updateId}")
-	public Customer updateCustomer(@PathVariable("updateId") int id, @RequestBody Customer customer) {
+	public Customer updateCustomer(@RequestHeader String token, @PathVariable("updateId") int id,
+			@RequestBody Customer customer) {
 		customer.setCustomerId(id);
 		return customerService.save(customer);
 
 	}
 
 	@GetMapping
-	public List<Customer> getAll() {
+	public List<Customer> getAll(@RequestHeader String token) {
 		return customerService.gellAllListOfCustomer();
 	}
 
 	@PostMapping
-	public List<Customer> saveList(@RequestBody List<Customer> customerList) {
+	public List<Customer> saveList(@RequestHeader String token, @RequestBody List<Customer> customerList) {
 		return customerService.saveList(customerList);
 	}
 
 	@DeleteMapping
-	public void deleteList(@RequestParam("customerId") int[] ids) {
+	public void deleteList(@RequestHeader String token, @RequestParam("customerId") int[] ids) {
 		customerService.deleteList(ids);
 	}
 
