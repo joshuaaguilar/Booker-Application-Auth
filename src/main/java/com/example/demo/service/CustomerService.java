@@ -49,4 +49,15 @@ public class CustomerService {
 		}
 	}
 
+	public String Login(Customer customer) {
+		TokenCreator tokenCreator = new TokenCreator();
+		String token = "";
+		if (customerRepository.findByUsername(customer.getUsername().is) {
+			token = tokenCreator.encode(customer);
+		} else {
+			throw new RuntimeException("Customers should exist first");
+		}
+		return token;
+	}
+
 }

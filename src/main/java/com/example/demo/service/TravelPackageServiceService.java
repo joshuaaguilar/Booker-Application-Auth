@@ -68,4 +68,10 @@ public class TravelPackageServiceService {
 			}
 		}
 	}
+
+	public void deleteAllServicesbyTravelPackageId(int travelPackageId) {
+
+		travelPackageServiceRepository.deleteAll(travelPackageServiceRepository
+				.findByTravelpackage(travelPackageRepository.findById(travelPackageId).get()));
+	}
 }

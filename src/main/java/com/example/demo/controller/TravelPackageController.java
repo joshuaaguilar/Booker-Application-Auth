@@ -43,8 +43,8 @@ public class TravelPackageController {
 	}
 
 	@DeleteMapping("/{travelPackgeId}/services")
-	public void deleteServices(@PathVariable("travelPackgeId") int id, @RequestParam("serviceid") int[] serviceId) {
-		travelPackageServiceService.deleteList(id, serviceId);
+	public void deleteServices(@PathVariable("travelPackgeId") int id) {
+		travelPackageServiceService.deleteAllServicesbyTravelPackageId(id);
 	}
 
 	@GetMapping("/{travelPackageId}")
@@ -100,7 +100,7 @@ public class TravelPackageController {
 //	}
 
 	@DeleteMapping("/{travelPackageId}/services/{serviceId}")
-	public List<ServiceModel> delete(@PathVariable("travelPackageid") int travelid,
+	public List<ServiceModel> delete(@PathVariable("travelPackageId") int travelid,
 			@PathVariable("serviceId") int serviceid) {
 		return travelPackageServiceService.delete(travelPackageServiceService.findbyid(travelid, serviceid), travelid);
 

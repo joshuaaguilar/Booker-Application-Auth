@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.Customer;
@@ -50,8 +51,13 @@ public class CustomerController {
 		return customerService.saveList(customerList);
 	}
 
-	@DeleteMapping("/{customerIdList}")
-	public void deleteList(@PathVariable("customerIdList") int[] ids) {
+	@DeleteMapping
+	public void deleteList(@RequestParam("customerId") int[] ids) {
 		customerService.deleteList(ids);
+	}
+
+	@PostMapping("login")
+	public String Login(@RequestBody Customer customer) {
+		return customerService.Login(customer);
 	}
 }
