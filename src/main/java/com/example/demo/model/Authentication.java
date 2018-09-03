@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Authentication {
@@ -12,7 +15,10 @@ public class Authentication {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int authenticationId;
 	@OneToOne
+	@JsonIgnore
+	@JoinColumn(name = "customerId")
 	private Customer customer;
+	private String token;
 
 	public int getAuthenticationId() {
 		return authenticationId;
@@ -28,6 +34,14 @@ public class Authentication {
 
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }

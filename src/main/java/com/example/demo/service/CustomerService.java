@@ -52,12 +52,13 @@ public class CustomerService {
 	public String Login(Customer customer) {
 		TokenCreator tokenCreator = new TokenCreator();
 		String token = "";
-		if (customerRepository.findByUsername(customer.getUsername().is) {
-			token = tokenCreator.encode(customer);
-		} else {
+		if (customerRepository.findByUsername(customer.getUsername()) == null) {
 			throw new RuntimeException("Customers should exist first");
-		}
-		return token;
-	}
 
+		} else {
+			token = tokenCreator.encode(customer);
+			return token;
+		}
+
+	}
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,9 +38,9 @@ public class Customer {
 
 	private String firstName;
 	private String lastName;
-	// @Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private String username;
-	// @Column(nullable = false)
+	@Column(nullable = false)
 	private String password;
 
 	public String getUsername() {
